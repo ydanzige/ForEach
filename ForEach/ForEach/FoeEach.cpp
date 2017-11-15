@@ -17,6 +17,19 @@ void ForEach(T arr, size_t size, OPER oper)
 	}
 }
 
+template<typename T>
+class SumOper
+{
+private:
+	double &m_sum;
+public:
+	SumOper(double &sum):m_sum(sum){}
+	void operator() (T item)
+	{
+		m_sum += item;
+	}
+};
+
 void main()
 {
 	double sum = 0;	
@@ -27,7 +40,11 @@ void main()
 	
 	ForEach(arri, 4, sumLambada);
 	cout << "Sum function: "<<sum <<endl;
-	
+
+	sum = 0;
+	ForEach(arri, 4, SumOper<int>(sum));
+	cout << "Sum function: " << sum << endl;
+
 	sum = 0;
 	ForEach(arrd, 4, sumLambada);
 	cout << "Sum function: " << sum << endl;
